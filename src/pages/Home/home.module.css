@@ -1,9 +1,11 @@
 .project {
     position: relative;
-    display: inline-block;
+    display: flex;
     cursor: pointer;
+    align-items: center;
+
   }
-  
+
   .dropdown {
     display: none;
     position: absolute;
@@ -16,17 +18,17 @@
     z-index: 1;
     width: 200px;
   }
-  
+
   .project:hover .dropdown {
     display: block;
   }
-  
+
   .dropdown div {
     padding: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
+
   .dropdown div:hover {
     background-color: #f0f0f0;
   }
@@ -50,8 +52,8 @@
 
 .aboutUs {
     position: absolute;
-    top: 0;
-    left: 90px;
+    top: 16px;
+    left: 115px;
 }
 
 .home,
@@ -59,12 +61,20 @@
 .services {
     position: absolute;
     top: 0;
-    left: 207px;
 }
 
-.home,
-.project {
+.services {
+    left: 260px;
+    top: 16px;
+}
+
+.home{
     left: 350px;
+    top: 16px;
+}
+
+.project {
+    left: 440px;
 }
 
 .home {
@@ -77,7 +87,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 55px;
+    width: 110px;
     height: 27px;
 }
 
@@ -92,7 +102,7 @@
 
 .groupParent,
 .navContent {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 55px;
@@ -103,6 +113,9 @@
     top: 4px;
     left: 789px;
     width: 381px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo,
@@ -127,7 +140,7 @@
 .buttonDownloadAppChild,
 .navBar {
     position: absolute;
-    top: 20px;
+    /* top: 20px; */
     left: 0;
     width: 1170px;
     height: 38px;
@@ -229,7 +242,7 @@
 .heroHeading {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -11px;
 }
 
 .heroHeading {
@@ -1401,7 +1414,7 @@
     align-items: center;
     font-size: var(--font-size-35xl);
     color: var(--color-darkslategray);
-    font-family: var(--font-poppins);
+    font-family: var(--font-be-vietnam-pro);
 }
 
 .container{
@@ -1414,33 +1427,32 @@
     display: flex;
     align-items: center;
   }
-  
+
   /* Common styles for menu items */
   .aboutUs,
   .services,
-  .project,
   .home {
     transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển động mềm mại */
   }
-  
+
   /* Styles for the "Residence" section */
   .aboutUs:hover {
     cursor: pointer; /* Biến con trỏ thành dấu tay khi hover vào */
     transform: scale(1.1); /* Hiệu ứng scale khi hover vào */
   }
-  
+
   /* Styles for the "Maintenance" section */
   .services:hover {
     cursor: pointer;
     transform: scale(1.1);
   }
-  
+
   /* Styles for the "Project" section with dropdown */
   .project:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
   }
-  
+
   /* Styles for the dropdown menu */
   .dropdown {
     display: none;
@@ -1448,30 +1460,29 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     z-index: 1;
   }
-  
+
   .project:hover .dropdown {
     display: block; /* Hiển thị dropdown khi hover vào "Project" */
   }
-  
+
   /* Styles for the items inside the dropdown */
   .dropdown div {
     padding: 10px;
     border-bottom: 1px solid #ccc;
   }
-  
+
   .dropdown div:hover {
     cursor: pointer;
   }
-  
+
   /* Styles for the "Login" section */
   .project:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
   }
-  
+
   /* Styles for the "Home" section */
   .home:hover {
     cursor: pointer;
     transform: scale(1.1);
   }
-  

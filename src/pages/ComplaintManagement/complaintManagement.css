@@ -1,3 +1,7 @@
+body {
+    font-family: var(--font-be-vietnam-pro);
+  }
+
 .container {
     margin-left: 10px;
     margin-right: 10px;
@@ -81,4 +85,8 @@
 .ant-pagination-prev .ant-pagination-item-link,
 .ant-pagination-next .ant-pagination-item-link {
     border-radius: 10px;
+}
+
+.ant-page-header-content {
+    padding-top: 0;
 }

@@ -23,7 +23,7 @@ import {
 
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import maintenancePlanningApi from "../../apis/maintenancePlansApi";
 import "./maintenancePlanning.css";
 
@@ -34,6 +34,7 @@ const MaintenancePlanning = () => {
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
     const history = useHistory();
+    const location = useLocation();
 
     const columns = [
         {
@@ -55,13 +56,13 @@ const MaintenancePlanning = () => {
             title: 'Ngày bắt đầu',
             dataIndex: 'start_date',
             key: 'start_date',
-            render: (text) => moment(text).format('YYYY-MM-DD'),
+            render: (text) => moment(text).format('DD-MM-YYYY'),
         },
         {
             title: 'Ngày kết thúc',
             dataIndex: 'end_date',
             key: 'end_date',
-            render: (text) => moment(text).format('YYYY-MM-DD'),
+            render: (text) => moment(text).format('DD-MM-YYYY'),
         },
     ];
 
@@ -124,11 +125,16 @@ const MaintenancePlanning = () => {
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
                     <Header style={{ display: 'flex', alignItems: 'center' }}>
-                        <Menu theme="dark" mode="horizontal" onClick={({ key }) => handleMenuClick(key)}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            onClick={({ key }) => handleMenuClick(key)}
+                            selectedKeys={[location.pathname.substring(1) || 'home']}
+                        >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
                                 Trang chủ
                             </Menu.Item>
-                            <Menu.Item key="maintenance" icon={<FileOutlined />}>
+                            <Menu.Item key="maintenance-planning" icon={<FileOutlined />}>
                                 Kế hoạch bảo trì
                             </Menu.Item>
                             <Menu.Item key="residence-event" icon={<ScheduleOutlined />}>
@@ -188,7 +194,7 @@ const MaintenancePlanning = () => {
                             </div>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by CondoOperationsManagement</Footer>
+                    <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer>
                 </Layout>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>

@@ -24,7 +24,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import uploadFileApi from '../../apis/uploadFileApi';
 import userApi from "../../apis/userApi";
 import "./profile.css";
@@ -40,7 +40,7 @@ const Profile = () => {
     const [file, setUploadFile] = useState();
 
     const history = useHistory();
-
+    const location = useLocation();
 
     const { data, isLoading, errorMessage } = useOpenWeather({
         key: '03b81b9c18944e6495d890b189357388',
@@ -187,10 +187,12 @@ const Profile = () => {
 
     const showModal = () => {
         setModalVisible(true);
+        form.resetFields();
     };
 
     const handleCancel = () => {
-        setModalVisible(false);
+        setVisibleModal(false);
+        form.resetFields();
     };
 
 
@@ -222,7 +224,12 @@ const Profile = () => {
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
                     <Header style={{ display: 'flex', alignItems: 'center' }}>
-                        <Menu theme="dark" mode="horizontal" onClick={({ key }) => handleMenuClick(key)}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            onClick={({ key }) => handleMenuClick(key)}
+                            selectedKeys={[location.pathname.substring(1) || 'home']}
+                        >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
                                 Trang chủ
                             </Menu.Item>
@@ -274,6 +281,7 @@ const Profile = () => {
                                                         width: 150,
                                                         height: 150,
                                                         borderRadius: '50%',
+                                                        objectFit: 'cover'
                                                     }}
                                                 />
                                             </Row>
@@ -345,10 +353,11 @@ const Profile = () => {
                     <Modal
                         title="Cập nhật thông tin cá nhân"
                         visible={isVisibleModal}
-                        onCancel={() => setVisibleModal(false)}
+                        onCancel={handleCancel}
                         footer={null}
                     >
                         <Form
+                            form={form}
                             initialValues={{
                                 username: userData?.username,
                                 email: userData?.email,

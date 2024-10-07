@@ -21,7 +21,7 @@ import {
 } from 'antd';
 
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import residenceRulesApi from "../../apis/residenceRulesApi";
 
 import "./residenceRules.css";
@@ -34,6 +34,7 @@ const ResidenceRules = () => {
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
     const history = useHistory();
+    const location = useLocation();
 
     const columns = [
         {
@@ -111,7 +112,12 @@ const ResidenceRules = () => {
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
                     <Header style={{ display: 'flex', alignItems: 'center' }}>
-                        <Menu theme="dark" mode="horizontal" onClick={({ key }) => handleMenuClick(key)}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            onClick={({ key }) => handleMenuClick(key)}
+                            selectedKeys={[location.pathname.substring(1) || 'home']}
+                        >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
                                 Trang chủ
                             </Menu.Item>
@@ -175,7 +181,7 @@ const ResidenceRules = () => {
                             </div>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by CondoOperationsManagement</Footer>
+                    <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer>
                 </Layout>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>

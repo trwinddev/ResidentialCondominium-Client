@@ -35,7 +35,7 @@ import dayjs from 'dayjs';
 import moment from 'moment';
 import userApi from '../../apis/userApi';
 import assetManagementApi from '../../apis/assetManagementApi';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
 
@@ -58,6 +58,7 @@ const EmergencyMaintenance = () => {
 
     const showModal = () => {
         setOpenModalCreate(true);
+        form.resetFields();
     };
 
     const handleOkUser = async (values) => {
@@ -213,7 +214,7 @@ const EmergencyMaintenance = () => {
         }
     }
 
-    
+
 
     const columns = [
         {
@@ -240,7 +241,7 @@ const EmergencyMaintenance = () => {
             title: 'Ngày báo cáo',
             dataIndex: 'reported_at',
             key: 'reported_at',
-            render: (text) => moment(text).format('YYYY-MM-DD'),
+            render: (text) => moment(text).format('DD-MM-YYYY'),
         },
         {
             title: 'Trạng thái',
@@ -251,7 +252,7 @@ const EmergencyMaintenance = () => {
             title: 'Ngày giải quyết',
             dataIndex: 'resolved_at',
             key: 'resolved_at',
-            render: (text) => moment(text).format('YYYY-MM-DD'),
+            render: (text) => moment(text).format('DD-MM-YYYY'),
         },
         {
             title: 'Mô tả giải quyết',
@@ -264,7 +265,7 @@ const EmergencyMaintenance = () => {
             key: 'resolved_by_name',
         },
         {
-            title: 'Action',
+            title: 'Hành động',
             key: 'action',
             render: (text, record) => (
                 <div>
@@ -306,6 +307,7 @@ const EmergencyMaintenance = () => {
 
 
     const history = useHistory();
+    const location = useLocation();
 
     const handleMenuClick = (key) => {
         switch (key) {
@@ -390,7 +392,12 @@ const EmergencyMaintenance = () => {
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
                     <Header style={{ display: 'flex', alignItems: 'center' }}>
-                        <Menu theme="dark" mode="horizontal" onClick={({ key }) => handleMenuClick(key)}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            onClick={({ key }) => handleMenuClick(key)}
+                            selectedKeys={[location.pathname.substring(1) || 'home']}
+                        >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
                                 Trang chủ
                             </Menu.Item>
@@ -455,11 +462,11 @@ const EmergencyMaintenance = () => {
                             </div>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by CondoOperationsManagement</Footer>
+                    <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer>
                 </Layout>
 
                 <Modal
-                    title="Tạo vấn đề khẩn cấp mới"
+                    title="Tạo vấn đề khẩn cấp"
                     visible={openModalCreate}
                     style={{ top: 100 }}
                     onOk={() => {
@@ -495,7 +502,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn tài sản!',
+                                    message: 'Vui lòng chọn tài sản',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -515,7 +522,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng nhập mô tả!',
+                                    message: 'Vui lòng nhập mô tả',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -529,7 +536,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn người báo cáo!',
+                                    message: 'Vui lòng chọn người báo cáo',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -584,7 +591,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn tài sản!',
+                                    message: 'Vui lòng chọn tài sản',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -604,7 +611,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng nhập mô tả!',
+                                    message: 'Vui lòng nhập mô tả',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -618,7 +625,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn người báo cáo!',
+                                    message: 'Vui lòng chọn người báo cáo',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -639,7 +646,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn người giải quyết!',
+                                    message: 'Vui lòng chọn người giải quyết',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
@@ -660,7 +667,7 @@ const EmergencyMaintenance = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Chi tiết giải quyết!',
+                                    message: 'Vui lòng nhập chi tiết giải quyết',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}

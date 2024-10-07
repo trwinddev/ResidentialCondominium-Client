@@ -88,7 +88,7 @@ const RegisterCustomer = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên hiển thị!',
+                                        message: 'Vui lòng nhập tên hiển thị',
                                     },
                                 ]}
                             >
@@ -101,7 +101,7 @@ const RegisterCustomer = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập mật khẩu!',
+                                        message: 'Vui lòng nhập mật khẩu',
                                     },
                                     { max: 20, message: 'Mật khẩu tối đa 20 ký tự' },
                                     { min: 6, message: 'Mật khẩu ít nhất 5 ký tự' },
@@ -121,15 +121,15 @@ const RegisterCustomer = () => {
                                     {
                                         required: true,
                                         whitespace: true,
-                                        message: 'Vui lòng nhập email!',
+                                        message: 'Vui lòng nhập email',
                                     },
                                     {
                                         type: 'email',
-                                        message: 'Email không hợp lệ!',
+                                        message: 'Email không hợp lệ',
                                     },
                                 ]}
                             >
-                                <Input prefix={<MailOutlined className="siteformitemicon" />} placeholder="e-mail!" />
+                                <Input prefix={<MailOutlined className="siteformitemicon" />} placeholder="e-mail" />
                             </Form.Item >
 
                             <Form.Item
@@ -139,11 +139,11 @@ const RegisterCustomer = () => {
                                     {
                                         required: true,
                                         whitespace: true,
-                                        message: 'Vui lòng nhập số điện thoại!',
+                                        message: 'Vui lòng nhập số điện thoại',
                                     },
                                     {
                                         pattern: new RegExp(/^[0-9]{10,15}$/g),
-                                        message: 'Số điện thoại không hợp lệ, vui lòng kiểm tra lại!',
+                                        message: 'Số điện thoại không hợp lệ, vui lòng kiểm tra lại',
                                     },
                                 ]}
                             >
