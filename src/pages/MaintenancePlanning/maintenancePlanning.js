@@ -43,7 +43,7 @@ const MaintenancePlanning = () => {
             render: (text, record, index) => index + 1,
         },
         {
-            title: 'Tên tài sản',
+            title: 'Tên thiết bị',
             dataIndex: 'asset_name',
             key: 'asset_name',
         },
@@ -171,7 +171,7 @@ const MaintenancePlanning = () => {
                                 <Row>
                                     <Col span="18">
                                         <Input
-                                            placeholder="Tìm kiếm theo tên tài sản"
+                                            placeholder="Tìm kiếm theo tên thiết bị"
                                             allowClear
                                             onChange={handleFilter}
                                             style={{ width: 300 }}

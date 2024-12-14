@@ -3,7 +3,6 @@
     display: flex;
     cursor: pointer;
     align-items: center;
-
   }
 
   .dropdown {
@@ -221,7 +220,7 @@
 }
 
 .heroText {
-    top: 285px;
+    top: 270px;
     font-size: var(--font-size-lg);
     line-height: 28px;
     text-align: left;

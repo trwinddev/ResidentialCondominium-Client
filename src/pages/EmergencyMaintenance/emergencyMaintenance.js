@@ -223,7 +223,7 @@ const EmergencyMaintenance = () => {
             key: 'id',
         },
         {
-            title: 'Tài sản',
+            title: 'Thiết bị',
             dataIndex: 'asset_name',
             key: 'asset_name',
         },
@@ -498,16 +498,16 @@ const EmergencyMaintenance = () => {
 
                         <Form.Item
                             name="asset_id"
-                            label="Tài sản"
+                            label="Thiết bị"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn tài sản',
+                                    message: 'Vui lòng chọn thiết bị',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
                         >
-                            <Select placeholder="Chọn tài sản">
+                            <Select placeholder="Chọn thiết bị">
                                 {assetList?.map(asset => (
                                     <Option key={asset.id} value={asset.id}>
                                         {asset.name}
@@ -587,16 +587,16 @@ const EmergencyMaintenance = () => {
                     >
                         <Form.Item
                             name="asset_id"
-                            label="Tài sản"
+                            label="Thiết bị"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Vui lòng chọn tài sản',
+                                    message: 'Vui lòng chọn thiết bị',
                                 },
                             ]}
                             style={{ marginBottom: 10 }}
                         >
-                            <Select placeholder="Chọn tài sản">
+                            <Select placeholder="Chọn thiết bị">
                                 {assetList?.map(asset => (
                                     <Option key={asset.id} value={asset.id}>
                                         {asset.name}

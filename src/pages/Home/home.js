@@ -61,7 +61,7 @@ const Home = () => {
                                     )}
                                 </div>
                             ) : (
-                                <div className={styles.project} onClick={() => handleClick("/login")}>Đăng nhập</div>
+                                <div style={{ marginTop: 15 }} className={styles.project} onClick={() => handleClick("/login")}>Đăng nhập</div>
                             )}
                             <div className={styles.groupParent}>
                                 <div className={styles.homeWrapper}>
@@ -82,10 +82,11 @@ const Home = () => {
                         </div> */}
                         <div className={styles.heroHeading}>
                             <b className={styles.condoOperationsManagement}>
-                                Condo Operations Management System
+                                BareHome
                             </b>
                         </div>
                     </div>
+                    <h3 className={styles.heroText}>Chất lượng từng căn hộ</h3>
                 </div>
                 <BackTop style={{ textAlign: 'right' }} />
             </div>

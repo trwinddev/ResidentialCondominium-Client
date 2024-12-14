@@ -540,7 +540,7 @@ const ComplaintManagement = () => {
                                                             }}
                                                         >
                                                             <Option value="all">Toàn bộ</Option>
-                                                            <Option value="resident">Cư đân</Option>
+                                                            <Option value="resident">Cư dân</Option>
                                                             <Option value="isReceptionist">Lễ tân</Option>
                                                             <Option value="isAdmin">Admin</Option>
 

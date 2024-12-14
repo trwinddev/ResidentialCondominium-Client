@@ -64,7 +64,7 @@ const Login = () => {
           onFinish={onFinish}
         >
           <Form.Item style={{ marginBottom: 3 }}>
-            <Divider style={{ marginBottom: 5, fontSize: 19 }} orientation="center">Condo Operations Management System!</Divider>
+            <Divider style={{ marginBottom: 5, fontSize: 19 }} orientation="center">BareHome</Divider>
           </Form.Item>
           <Form.Item style={{ marginBottom: 16, textAlign: "center" }}>
             <p className="text">Vui lòng đăng nhập để tiếp tục</p>
