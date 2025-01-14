@@ -18,7 +18,9 @@ import {
     Row,
     Space,
     Spin,
-    Table
+    Table,
+    Card,
+    Modal
 } from 'antd';
 
 import moment from 'moment';
@@ -26,6 +28,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import maintenancePlanningApi from "../../apis/maintenancePlansApi";
 import "./maintenancePlanning.css";
+import { Link } from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,6 +38,18 @@ const MaintenancePlanning = () => {
     const [loading, setLoading] = useState(true);
     const history = useHistory();
     const location = useLocation();
+
+    const [selectedMaintenance, setSelectedMaintenance] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = (item) => {
+        setSelectedMaintenance(item);
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     const columns = [
         {
@@ -124,16 +139,24 @@ const MaintenancePlanning = () => {
         <div>
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Header style={{ display: 'flex', alignItems: 'center' }}>
+                    <Header>
                         <Menu
                             theme="dark"
                             mode="horizontal"
                             onClick={({ key }) => handleMenuClick(key)}
                             selectedKeys={[location.pathname.substring(1) || 'home']}
                         >
-                            <Menu.Item key="home" icon={<HomeOutlined />}>
-                                Trang chủ
-                            </Menu.Item>
+                            {/* <Menu.Item key="home" icon={<HomeOutlined />}> */}
+                            <div className="logo">
+                                <Link to="/">
+                                    <img
+                                        src="https://barehome.com/cdn/shop/files/bare-logo-PNG-type_c86142f5-6b4b-4c7c-8086-018c639cf0a5.png?v=1720802636"
+                                        alt="BareHome Logo"
+                                        className="logoImage"
+                                    />
+                                </Link>
+                            </div>
+                            {/* </Menu.Item> */}
                             <Menu.Item key="maintenance-planning" icon={<FileOutlined />}>
                                 Kế hoạch bảo trì
                             </Menu.Item>
@@ -147,7 +170,7 @@ const MaintenancePlanning = () => {
                                 Khiếu nại
                             </Menu.Item>
                             <Menu.Item key="residence-rules" icon={<FileProtectOutlined />}>
-                               Nội quy tòa nhà
+                                Nội quy tòa nhà
                             </Menu.Item>
                             <Menu.Item key="profile" icon={<TeamOutlined />}>
                                 Trang cá nhân
@@ -189,12 +212,74 @@ const MaintenancePlanning = () => {
                         </div>
                     </div>
                         <div className="site-layout-content" >
-                            <div style={{ marginTop: 30 }}>
-                                <Table columns={columns} pagination={{ position: ['bottomCenter'] }} dataSource={category} />
+                            <div>
+                                <div className="maintenance-list">
+                                    {category.map((item, index) => (
+                                        <Card
+                                            key={index}
+                                            className="maintenance-card"
+                                            hoverable
+                                            onClick={() => showModal(item)}
+                                        >
+                                            <div className="maintenance-card-content">
+                                                <div className="maintenance-card-header">
+                                                    <h3>{item.asset_name}</h3>
+                                                    <span className="maintenance-id">#{index + 1}</span>
+                                                </div>
+                                                <p className="maintenance-description">{item.plan_description}</p>
+                                                <div className="maintenance-dates">
+                                                    <div>
+                                                        <span className="date-label">Ngày bắt đầu:</span>
+                                                        <span className="date-value">{moment(item.start_date).format('DD-MM-YYYY')}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span className="date-label">Ngày kết thúc:</span>
+                                                        <span className="date-value">{moment(item.end_date).format('DD-MM-YYYY')}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer>
+                    <Modal
+                        title="Chi tiết kế hoạch bảo trì"
+                        open={isModalVisible}
+                        onCancel={handleCancel}
+                        footer={null}
+                        width={700}
+                        className="maintenance-modal"
+                    >
+                        {selectedMaintenance && (
+                            <div className="maintenance-modal-content">
+                                <div className="modal-header">
+                                    <h2>{selectedMaintenance.asset_name}</h2>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="modal-section">
+                                        <h3>Mô tả kế hoạch</h3>
+                                        <p>{selectedMaintenance.plan_description}</p>
+                                    </div>
+                                    <div className="modal-section">
+                                        <h3>Thời gian</h3>
+                                        <div className="modal-dates">
+                                            <div className="date-item">
+                                                <span className="modal-label">Ngày bắt đầu:</span>
+                                                <span className="modal-value">{moment(selectedMaintenance.start_date).format('DD-MM-YYYY')}</span>
+                                            </div>
+                                            <div className="date-item">
+                                                <span className="modal-label">Ngày kết thúc:</span>
+                                                <span className="modal-value">{moment(selectedMaintenance.end_date).format('DD-MM-YYYY')}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </Modal>
+                    {/* <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer> */}
                 </Layout>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>

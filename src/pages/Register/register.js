@@ -61,11 +61,23 @@ const RegisterCustomer = () => {
         }
     }
     return (
-        <div>
+        <div className="container">
+            <nav className="navBar">
+                <div className="logo">
+                    <Link to="/">
+                        <img
+                            src="https://barehome.com/cdn/shop/files/bare-logo-PNG-type_c86142f5-6b4b-4c7c-8086-018c639cf0a5.png?v=1720802636"
+                            alt="BareHome Logo"
+                            className="logoImage"
+                        />
+                    </Link>
+                </div>
+            </nav>
             <div className="imageBackground">
-                <div id="wrapper">
-                    <Card id="dialog" bordered={false} >
-                        <Form
+                {/* <div className="overlay"> */}
+                    <div id="wrapper">
+                        <Card id="dialog" bordered={false} >
+                            <Form
                             style={{ width: 400, marginBottom: 8 }}
                             name="normal_login"
                             className="loginform"
@@ -162,6 +174,7 @@ const RegisterCustomer = () => {
                     </Card>
                 </div>
             </div>
+            {/* </div> */}
         </div>
     )
 }

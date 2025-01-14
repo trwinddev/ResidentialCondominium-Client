@@ -7,6 +7,14 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .text {
@@ -15,17 +23,21 @@
 
 #dialog {
   max-width: 490px;
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-160%);
   display: block;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 6px;
   border: solid 1px #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: #ffffff !important;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .button {
@@ -48,6 +60,12 @@
 .imageBackground {
   width: 100%;
   height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('https://vcdn1-vnexpress.vnecdn.net/2024/04/24/img-1208-1709736919-1709740396-8496-7315-1713977926.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=LEHOOyzNrVePpj5rlA15HA');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
 }
 
 
@@ -81,3 +99,13 @@
   text-decoration: underline;
   color: green;
 }
+
+.ant-btn {
+  background-image: none !important;
+  background-color: #3498db !important;
+}
+
+.ant-btn:hover {
+  background-color: #2980b9 !important;
+}
+

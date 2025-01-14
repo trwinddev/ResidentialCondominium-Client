@@ -5,3 +5,7 @@
 .profile-card{
     padding: 0px;
 }
+
+.ant-modal-body {
+    padding: 0;
+}

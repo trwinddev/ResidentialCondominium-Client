@@ -23,6 +23,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import meetingResidentsApi from "../../apis/meetingResidentsApi";
 import "./recordResidentEvents.css";
 import { PageHeader } from '@ant-design/pro-layout';
+import { Link } from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 
@@ -64,7 +65,7 @@ const RecordResidentEvents = () => {
             case 'home':
                 history.push('/');
                 break;
-            case 'maintenance':
+            case 'maintenance-planning':
                 history.push('/maintenance-planning');
                 break;
             case 'residence-event':
@@ -118,17 +119,25 @@ const RecordResidentEvents = () => {
         <div>
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Header style={{ display: 'flex', alignItems: 'center' }}>
+                <Header>
                         <Menu
                             theme="dark"
                             mode="horizontal"
                             onClick={({ key }) => handleMenuClick(key)}
                             selectedKeys={[location.pathname.substring(1) || 'home']}
                         >
-                        <Menu.Item key="home" icon={<HomeOutlined />}>
-                                Trang chủ
-                            </Menu.Item>
-                            <Menu.Item key="maintenance" icon={<FileOutlined />}>
+                            {/* <Menu.Item key="home" icon={<HomeOutlined />}> */}
+                            <div className="logo">
+                                <Link to="/">
+                                    <img
+                                        src="https://barehome.com/cdn/shop/files/bare-logo-PNG-type_c86142f5-6b4b-4c7c-8086-018c639cf0a5.png?v=1720802636"
+                                        alt="BareHome Logo"
+                                        className="logoImage"
+                                    />
+                                </Link>
+                            </div>
+                            {/* </Menu.Item> */}
+                            <Menu.Item key="maintenance-planning" icon={<FileOutlined />}>
                                 Kế hoạch bảo trì
                             </Menu.Item>
                             <Menu.Item key="residence-event" icon={<ScheduleOutlined />}>
@@ -141,7 +150,7 @@ const RecordResidentEvents = () => {
                                 Khiếu nại
                             </Menu.Item>
                             <Menu.Item key="residence-rules" icon={<FileProtectOutlined />}>
-                               Nội quy tòa nhà
+                                Nội quy tòa nhà
                             </Menu.Item>
                             <Menu.Item key="profile" icon={<TeamOutlined />}>
                                 Trang cá nhân

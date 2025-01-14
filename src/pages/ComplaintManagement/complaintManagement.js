@@ -27,13 +27,15 @@ import {
     Select,
     Layout,
     Menu,
-    Rate
+    Rate,
 } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import complaintApi from "../../apis/complaintApi";
 import "./complaintManagement.css";
 import userApi from '../../apis/userApi';
+import { Link } from "react-router-dom";
+import axiosClient from '../../apis/axiosClient';
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -50,6 +52,9 @@ const ComplaintManagement = () => {
     const [id, setId] = useState();
     const [userList, setUserList] = useState();
     const [progress, setProgress] = useState();
+    const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
+
+    const [passwordForm] = Form.useForm();
 
     const showModal = () => {
         setOpenModalCreate(true);
@@ -64,7 +69,7 @@ const ComplaintManagement = () => {
                 user_id: userData.id,
                 subject: values.subject,
                 description: values.description,
-                status: values.status || "pending",
+                status: values.status || "Đang chờ xử lý",
                 progress: values.progress || 0,
                 assigned_to: values.assigned_to || "",
             };
@@ -198,7 +203,7 @@ const ComplaintManagement = () => {
                 const response = await complaintApi.getDetailComplaint(id);
                 setId(id);
                 setProgress(response.progress);
-                if (response.status != "pending") {
+                if (response.status != "Đang chờ xử lý") {
                     setIsDisabled(true);
                 }
                 form2.setFieldsValue({
@@ -314,11 +319,11 @@ const ComplaintManagement = () => {
             dataIndex: 'status',
             key: 'status',
         },
-        {
-            title: 'Đánh giá',
-            dataIndex: 'progress',
-            key: 'progress',
-        },
+        // {
+        //     title: 'Đánh giá',
+        //     dataIndex: 'progress',
+        //     key: 'progress',
+        // },
         {
             title: 'Đảm nhiệm bởi',
             dataIndex: 'assigned_to',
@@ -329,7 +334,7 @@ const ComplaintManagement = () => {
             key: 'action',
             render: (text, record) => (
                 <div>
-                    {userData.role !== 'isAdmin' && record.status === 'pending' && (
+                    {userData.role !== 'isAdmin' && record.status === 'Đang chờ xử lý' && (
                         <Row>
                             <Button
                                 size="small"
@@ -381,7 +386,7 @@ const ComplaintManagement = () => {
             case 'home':
                 history.push('/');
                 break;
-            case 'maintenance':
+            case 'maintenance-planning':
                 history.push('/maintenance-planning');
                 break;
             case 'residence-event':
@@ -400,10 +405,38 @@ const ComplaintManagement = () => {
                 history.push('/residence-rules');
                 break;
             case 'change-password':
-                history.push('/change-password');
+                setPasswordModalVisible(true);
                 break;
             default:
                 break;
+        }
+    };
+
+    const handlePasswordChange = async (values) => {
+        try {
+            const resetPassWord = {
+                currentPassword: values.currentPassword,
+                newPassword: values.password
+            }
+            const currentUser = JSON.parse(localStorage.getItem("user"));
+            const response = await axiosClient.put("/user/changePassword/" + currentUser.id, resetPassWord);
+
+            if (response.message === "Current password is incorrect") {
+                notification.error({
+                    message: 'Thông báo',
+                    description: 'Mật khẩu hiện tại không đúng!',
+                });
+                return;
+            }
+
+            notification.success({
+                message: 'Thông báo',
+                description: 'Thay đổi mật khẩu thành công',
+            });
+            setPasswordModalVisible(false);
+            passwordForm.resetFields();
+        } catch (error) {
+            console.log("password error", error);
         }
     };
 
@@ -473,17 +506,25 @@ const ComplaintManagement = () => {
         <div>
             <Spin spinning={loading}>
                 <Layout className="layout" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Header style={{ display: 'flex', alignItems: 'center' }}>
+                <Header>
                         <Menu
                             theme="dark"
                             mode="horizontal"
                             onClick={({ key }) => handleMenuClick(key)}
                             selectedKeys={[location.pathname.substring(1) || 'home']}
                         >
-                            <Menu.Item key="home" icon={<HomeOutlined />}>
-                                Trang chủ
-                            </Menu.Item>
-                            <Menu.Item key="maintenance" icon={<FileOutlined />}>
+                            {/* <Menu.Item key="home" icon={<HomeOutlined />}> */}
+                            <div className="logo">
+                                <Link to="/">
+                                    <img
+                                        src="https://barehome.com/cdn/shop/files/bare-logo-PNG-type_c86142f5-6b4b-4c7c-8086-018c639cf0a5.png?v=1720802636"
+                                        alt="BareHome Logo"
+                                        className="logoImage"
+                                    />
+                                </Link>
+                            </div>
+                            {/* </Menu.Item> */}
+                            <Menu.Item key="maintenance-planning" icon={<FileOutlined />}>
                                 Kế hoạch bảo trì
                             </Menu.Item>
                             <Menu.Item key="residence-event" icon={<ScheduleOutlined />}>
@@ -496,7 +537,7 @@ const ComplaintManagement = () => {
                                 Khiếu nại
                             </Menu.Item>
                             <Menu.Item key="residence-rules" icon={<FileProtectOutlined />}>
-                               Nội quy tòa nhà
+                                Nội quy tòa nhà
                             </Menu.Item>
                             <Menu.Item key="profile" icon={<TeamOutlined />}>
                                 Trang cá nhân
@@ -504,8 +545,6 @@ const ComplaintManagement = () => {
                             <Menu.Item key="change-password" icon={<SettingOutlined />}>
                                 Thay đổi mật khẩu
                             </Menu.Item>
-
-
                         </Menu>
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
@@ -564,6 +603,82 @@ const ComplaintManagement = () => {
                 </Layout>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>
+
+            <Modal
+                title="Thay đổi mật khẩu"
+                visible={isPasswordModalVisible}
+                onCancel={() => {
+                    setPasswordModalVisible(false);
+                    passwordForm.resetFields();
+                }}
+                footer={null}
+                className='ant-modal-body2'
+            >
+                <Form
+                    form={passwordForm}
+                    onFinish={handlePasswordChange}
+                    style={{ padding: '24px', maxWidth: '500px', margin: 'auto' }}
+                >
+                    <Form.Item
+                        name="currentPassword"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Nhập mật khẩu cũ!',
+                            },
+                        ]}
+                        hasFeedback
+                        style={{ marginBottom: 10 }}
+                    >
+                        <Input.Password placeholder="Mật khẩu cũ" />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Nhập mật khẩu!',
+                            },
+                            { max: 100, message: 'Tên tối đa 100 ký tự' },
+                            { min: 5, message: 'Tên ít nhất 5 ký tự' },
+                        ]}
+                        hasFeedback
+                        style={{ marginBottom: 10 }}
+                    >
+                        <Input.Password placeholder="Mật khẩu mới" />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="confirm"
+                        dependencies={['password']}
+                        hasFeedback
+                        style={{ marginBottom: 10 }}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Vui lòng nhập lại mật khẩu!',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('Hai mật khẩu bạn nhập không khớp!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password placeholder="Nhập lại mật khẩu mới" />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                            Hoàn thành
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Modal>
 
             <Modal
                 title="Tạo khiếu nại mới"

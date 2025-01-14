@@ -86,3 +86,282 @@
 .ant-pagination-next .ant-pagination-item-link {
     border-radius: 10px;
 }
+
+.maintenance-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.maintenance-card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: white;
+    cursor: pointer;
+}
+
+.maintenance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.maintenance-card-content {
+    padding: 10px;
+}
+
+.maintenance-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.maintenance-card-header h3 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.maintenance-id {
+    background: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.maintenance-description {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.maintenance-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+}
+
+.date-label {
+    color: #888;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.date-value {
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+/* Modal Styles */
+
+.maintenance-modal .ant-modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.maintenance-modal .ant-modal-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 16px 24px;
+}
+
+.maintenance-modal-content {
+    /* padding: 20px; */
+}
+
+.modal-header h2 {
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.modal-section {
+    margin-bottom: 24px;
+}
+
+.modal-section h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.modal-section p {
+    color: #4a4a4a;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.modal-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.date-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-label {
+    color: #666;
+    font-weight: 500;
+    min-width: 120px;
+}
+
+.modal-value {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .maintenance-modal {
+        max-width: 90vw !important;
+    }
+
+    .modal-dates {
+        flex-direction: column;
+    }
+}
+
+/* Modern Header Styles */
+.ant-layout-header {
+    padding: 0;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 82px;
+    width: 100%;
+}
+
+/* Menu Container */
+.ant-menu.ant-menu-dark {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    padding: 0 50px; /* Match content padding */
+    border: none;
+    overflow-x: auto; /* Enable horizontal scroll on small screens */
+    white-space: nowrap; /* Prevent menu items from wrapping */
+    padding-top: 8px;
+}
+
+/* Hide scrollbar but keep functionality */
+.ant-menu.ant-menu-dark::-webkit-scrollbar {
+    display: none;
+}
+
+/* Menu Items */
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+    height: 46px;
+    line-height: 46px;
+    margin: 0 4px;
+    padding: 0 15px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .ant-menu.ant-menu-dark {
+        padding: 0 30px;
+    }
+
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+        padding: 0 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 992px) {
+    .ant-menu.ant-menu-dark {
+        padding: 0 20px;
+    }
+
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-item .anticon {
+        margin-right: 4px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ant-layout-header {
+        height: 60px;
+    }
+
+    .ant-menu.ant-menu-dark {
+        padding: 0 15px;
+    }
+
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+}
+
+/* Menu Items */
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+    height: 46px;
+    line-height: 46px;
+    margin: 0 4px;
+    padding: 0 15px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent !important;
+    flex-shrink: 0;
+}
+
+/* Active and Hover states */
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+    color: #3498DB !important;
+    background: transparent !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+    font-weight: 600;
+}
+
+/* Optional: Add subtle hover effect */
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover:not(.ant-menu-item-selected) {
+    opacity: 0.8;
+}
+
+.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon + span, .ant-menu-dark .ant-menu-item-selected .anticon + span,
+.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon, .ant-menu-dark .ant-menu-item-selected .anticon {
+    color: #3498DB !important;
+}
+
+.logo .logoImage {
+    height: 60px;
+    object-fit: contain;
+    margin-top: -2px !important;
+}

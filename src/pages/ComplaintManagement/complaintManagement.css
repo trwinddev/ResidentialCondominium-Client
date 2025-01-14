@@ -90,3 +90,11 @@ body {
 .ant-page-header-content {
     padding-top: 0;
 }
+
+.ant-modal-body {
+    padding: 10px !important;
+}
+
+.ant-modal-body2 {
+    padding: 0 !important;
+}
