@@ -326,56 +326,56 @@ const ComplaintManagement = () => {
         // },
         {
             title: 'Đảm nhiệm bởi',
-            dataIndex: 'assigned_to',
-            key: 'assigned_to',
+            dataIndex: 'assigned_to_name',
+            key: 'assigned_to_name',
         },
-        {
-            title: 'Hành động',
-            key: 'action',
-            render: (text, record) => (
-                <div>
-                    {userData.role !== 'isAdmin' && record.status === 'Đang chờ xử lý' && (
-                        <Row>
-                            <Button
-                                size="small"
-                                icon={<EditOutlined />}
-                                style={{ width: 150, borderRadius: 15, height: 30 }}
-                                onClick={() => handleEditCategory(record.id)}
-                            >
-                                {"Edit"}
-                            </Button>
-                            <div style={{ marginLeft: 10 }}>
-                                <Popconfirm
-                                    title="Are you sure to delete this complaint?"
-                                    onConfirm={() => handleDeleteCategory(record.id)}
-                                    okText="Yes"
-                                    cancelText="No"
-                                >
-                                    <Button
-                                        size="small"
-                                        icon={<DeleteOutlined />}
-                                        style={{ width: 150, borderRadius: 15, height: 30 }}
-                                    >
-                                        {"Delete"}
-                                    </Button>
-                                </Popconfirm>
-                            </div>
-                        </Row>
-                    )}
+        // {
+        //     title: 'Hành động',
+        //     key: 'action',
+        //     render: (text, record) => (
+        //         <div>
+        //             {userData.role !== 'isAdmin' && record.status === 'Đang chờ xử lý' && (
+        //                 <Row>
+        //                     <Button
+        //                         size="small"
+        //                         icon={<EditOutlined />}
+        //                         style={{ width: 150, borderRadius: 15, height: 30 }}
+        //                         onClick={() => handleEditCategory(record.id)}
+        //                     >
+        //                         {"Edit"}
+        //                     </Button>
+        //                     <div style={{ marginLeft: 10 }}>
+        //                         <Popconfirm
+        //                             title="Are you sure to delete this complaint?"
+        //                             onConfirm={() => handleDeleteCategory(record.id)}
+        //                             okText="Yes"
+        //                             cancelText="No"
+        //                         >
+        //                             <Button
+        //                                 size="small"
+        //                                 icon={<DeleteOutlined />}
+        //                                 style={{ width: 150, borderRadius: 15, height: 30 }}
+        //                             >
+        //                                 {"Delete"}
+        //                             </Button>
+        //                         </Popconfirm>
+        //                     </div>
+        //                 </Row>
+        //             )}
 
-                    {record.status === 'Đã xong' && record.progress === 0 && (
-                        <Button
-                            size="small"
-                            icon={<StarOutlined />}
-                            style={{ width: 150, borderRadius: 15, height: 30 }}
-                            onClick={() => handleRatingModal(record.id)}
-                        >
-                            {"Đánh giá"}
-                        </Button>
-                    )}
-                </div>
-            ),
-        },
+        //             {record.status === 'Đã xong' && record.progress === 0 && (
+        //                 <Button
+        //                     size="small"
+        //                     icon={<StarOutlined />}
+        //                     style={{ width: 150, borderRadius: 15, height: 30 }}
+        //                     onClick={() => handleRatingModal(record.id)}
+        //                 >
+        //                     {"Đánh giá"}
+        //                 </Button>
+        //             )}
+        //         </div>
+        //     ),
+        // },
     ];
 
     const history = useHistory();
@@ -735,7 +735,7 @@ const ComplaintManagement = () => {
                         ]}
                         style={{ marginBottom: 10 }}
                     >
-                        <Input placeholder="Mô tả" />
+                        <Input.TextArea rows={4} placeholder="Mô tả" />
                     </Form.Item>
 
                 </Form>
@@ -796,7 +796,7 @@ const ComplaintManagement = () => {
                         ]}
                         style={{ marginBottom: 10 }}
                     >
-                        <Input placeholder="Mô tả" disabled={isDisabled} />
+                        <Input.TextArea rows={4} placeholder="Mô tả" disabled={isDisabled} />
                     </Form.Item>
                 </Form>
             </Modal>

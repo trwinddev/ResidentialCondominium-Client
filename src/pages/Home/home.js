@@ -117,19 +117,22 @@ const Home = () => {
             icon: <CalendarOutlined />,
             title: "Kế hoạch bảo trì",
             description: "Quản lý và theo dõi các kế hoạch bảo trì chuyên nghiệp, đảm bảo chất lượng sống tối ưu cho từng căn hộ.",
-            image: "https://image.luatvietnam.vn/uploaded/1200x675twebp/images/original/2024/01/15/mua-chung-cu-chi-co-hop-dong-mua-ban_1501082719.png"
+            image: "https://image.luatvietnam.vn/uploaded/1200x675twebp/images/original/2024/01/15/mua-chung-cu-chi-co-hop-dong-mua-ban_1501082719.png",
+            route: "/maintenance-planning"
         },
         {
             icon: <InfoCircleOutlined />,
             title: "Sự kiện cư dân",
             description: "Kết nối cộng đồng qua các sự kiện và hoạt động đa dạng, tạo môi trường sống thân thiện và gắn kết.",
-            image: "https://anlandlakeview.com/wp-content/uploads/chung-cu-anland-lakeview-3.jpg"
+            image: "https://anlandlakeview.com/wp-content/uploads/chung-cu-anland-lakeview-3.jpg",
+            route: "/residence-event"
         },
         {
             icon: <SafetyOutlined />,
             title: "An Ninh Chung Cư",
             description: "Hệ thống an ninh hiện đại, giám sát 24/7, đảm bảo an toàn tối đa cho cư dân.",
-            image: "https://image.plo.vn/Uploaded/2024/rohuosf/2023_10_27/chung-cu-tai-dinh-cu-thang-tam-h8-2574.jpg"
+            image: "https://image.plo.vn/Uploaded/2024/rohuosf/2023_10_27/chung-cu-tai-dinh-cu-thang-tam-h8-2574.jpg",
+            route: "emergency"
         }
     ];
 
@@ -361,13 +364,11 @@ const Home = () => {
                         <div className={styles.heroCta}>
                             <button
                                 className={styles.ctaButton}
-                                onClick={() => handleClick("/contact")}
                             >
                                 Liên Hệ Ngay
                             </button>
                             <button
                                 className={styles.ctaButtonOutline}
-                                onClick={() => handleClick("/about")}
                             >
                                 Tìm Hiểu Thêm
                             </button>
@@ -395,7 +396,7 @@ const Home = () => {
                                 <p>{service.description}</p>
                                 <button
                                     className={styles.serviceCardButton}
-                                    onClick={() => handleClick(`/service/${service.title.toLowerCase().replace(/\s+/g, '-')}`)}
+                                    onClick={() => handleClick(`${service.route}`)}
                                 >
                                     Xem Chi Tiết
                                 </button>

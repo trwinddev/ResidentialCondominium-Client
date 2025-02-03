@@ -265,45 +265,45 @@ const EmergencyMaintenance = () => {
             dataIndex: 'resolved_by_name',
             key: 'resolved_by_name',
         },
-        {
-            title: 'Hành động',
-            key: 'action',
-            render: (text, record) => (
-                <div>
-                    <Row>
-                        {record.status === 'Đang chờ xử lý' && (
+        // {
+        //     title: 'Hành động',
+        //     key: 'action',
+        //     render: (text, record) => (
+        //         <div>
+        //             <Row>
+        //                 {record.status === 'Đang chờ xử lý' && (
 
-                            <Button
-                                size="small"
-                                icon={<EditOutlined />}
-                                style={{ width: 150, borderRadius: 15, height: 30 }}
-                                onClick={() => handleEditCategory(record.id)}
-                            >
-                                {"Chỉnh sửa"}
-                            </Button>
-                        )}
-                        {record.status === 'Đang chờ xử lý' && (
-                            <div style={{ marginLeft: 10 }}>
-                                <Popconfirm
-                                    title="Are you sure to delete this complaint?"
-                                    onConfirm={() => handleDeleteCategory(record.id)}
-                                    okText="Yes"
-                                    cancelText="No"
-                                >
-                                    <Button
-                                        size="small"
-                                        icon={<DeleteOutlined />}
-                                        style={{ width: 150, borderRadius: 15, height: 30 }}
-                                    >
-                                        {"Xóa"}
-                                    </Button>
-                                </Popconfirm>
-                            </div>
-                        )}
-                    </Row>
-                </div>
-            ),
-        },
+        //                     <Button
+        //                         size="small"
+        //                         icon={<EditOutlined />}
+        //                         style={{ width: 150, borderRadius: 15, height: 30 }}
+        //                         onClick={() => handleEditCategory(record.id)}
+        //                     >
+        //                         {"Chỉnh sửa"}
+        //                     </Button>
+        //                 )}
+        //                 {record.status === 'Đang chờ xử lý' && (
+        //                     <div style={{ marginLeft: 10 }}>
+        //                         <Popconfirm
+        //                             title="Are you sure to delete this complaint?"
+        //                             onConfirm={() => handleDeleteCategory(record.id)}
+        //                             okText="Yes"
+        //                             cancelText="No"
+        //                         >
+        //                             <Button
+        //                                 size="small"
+        //                                 icon={<DeleteOutlined />}
+        //                                 style={{ width: 150, borderRadius: 15, height: 30 }}
+        //                             >
+        //                                 {"Xóa"}
+        //                             </Button>
+        //                         </Popconfirm>
+        //                     </div>
+        //                 )}
+        //             </Row>
+        //         </div>
+        //     ),
+        // },
     ];
 
 
@@ -536,7 +536,7 @@ const EmergencyMaintenance = () => {
                             ]}
                             style={{ marginBottom: 10 }}
                         >
-                            <Input placeholder="Mô tả" />
+                            <Input.TextArea rows={4} placeholder="Mô tả" />
                         </Form.Item>
 
                         <Form.Item
@@ -625,7 +625,7 @@ const EmergencyMaintenance = () => {
                             ]}
                             style={{ marginBottom: 10 }}
                         >
-                            <Input placeholder="Mô tả" />
+                            <Input.TextArea rows={4} placeholder="Mô tả" />
                         </Form.Item>
 
                         <Form.Item
@@ -682,7 +682,7 @@ const EmergencyMaintenance = () => {
                             style={{ marginBottom: 10 }}
                             hidden
                         >
-                            <Input placeholder="Chi tiết giải quyết" />
+                            <Input.TextArea rows={4} placeholder="Chi tiết giải quyết" />
                         </Form.Item>
 
                     </Form>
