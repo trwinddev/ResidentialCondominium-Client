@@ -17,6 +17,8 @@ import {
     Menu,
     Row,
     Space,
+    notification,
+    Form,
     Spin,
     Table,
     Card,
@@ -29,6 +31,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import maintenancePlanningApi from "../../apis/maintenancePlansApi";
 import "./maintenancePlanning.css";
 import { Link } from "react-router-dom";
+import axiosClient from '../../apis/axiosClient';
 
 const { Header, Content, Footer } = Layout;
 
@@ -41,6 +44,8 @@ const MaintenancePlanning = () => {
 
     const [selectedMaintenance, setSelectedMaintenance] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
+    const [passwordForm] = Form.useForm();
 
     const showModal = (item) => {
         setSelectedMaintenance(item);
@@ -105,7 +110,7 @@ const MaintenancePlanning = () => {
                 history.push('/residence-rules');
                 break;
             case 'change-password':
-                history.push('/change-password');
+                setPasswordModalVisible(true);
                 break;
             default:
                 break;
@@ -120,6 +125,34 @@ const MaintenancePlanning = () => {
             console.log('search to fetch category list:' + error);
         }
     }
+
+    const handlePasswordChange = async (values) => {
+        try {
+            const resetPassWord = {
+                currentPassword: values.currentPassword,
+                newPassword: values.password
+            }
+            const currentUser = JSON.parse(localStorage.getItem("user"));
+            const response = await axiosClient.put("/user/changePassword/" + currentUser.id, resetPassWord);
+
+            if (response.message === "Current password is incorrect") {
+                notification.error({
+                    message: 'Thông báo',
+                    description: 'Mật khẩu hiện tại không đúng!',
+                });
+                return;
+            }
+
+            notification.success({
+                message: 'Thông báo',
+                description: 'Thay đổi mật khẩu thành công',
+            });
+            setPasswordModalVisible(false);
+            passwordForm.resetFields();
+        } catch (error) {
+            console.log("password error", error);
+        }
+    };
 
     useEffect(() => {
         (async () => {
@@ -281,6 +314,82 @@ const MaintenancePlanning = () => {
                     </Modal>
                     {/* <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer> */}
                 </Layout>
+
+                <Modal
+                    title="Thay đổi mật khẩu"
+                    visible={isPasswordModalVisible}
+                    onCancel={() => {
+                        setPasswordModalVisible(false);
+                        passwordForm.resetFields();
+                    }}
+                    footer={null}
+                    className='ant-modal-body2'
+                >
+                    <Form
+                        form={passwordForm}
+                        onFinish={handlePasswordChange}
+                        style={{ padding: '24px', maxWidth: '500px', margin: 'auto' }}
+                    >
+                        <Form.Item
+                            name="currentPassword"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Nhập mật khẩu cũ!',
+                                },
+                            ]}
+                            hasFeedback
+                            style={{ marginBottom: 10 }}
+                        >
+                            <Input.Password placeholder="Mật khẩu cũ" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Nhập mật khẩu!',
+                                },
+                                { max: 100, message: 'Tên tối đa 100 ký tự' },
+                                { min: 5, message: 'Tên ít nhất 5 ký tự' },
+                            ]}
+                            hasFeedback
+                            style={{ marginBottom: 10 }}
+                        >
+                            <Input.Password placeholder="Mật khẩu mới" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="confirm"
+                            dependencies={['password']}
+                            hasFeedback
+                            style={{ marginBottom: 10 }}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Vui lòng nhập lại mật khẩu!',
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(new Error('Hai mật khẩu bạn nhập không khớp!'));
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password placeholder="Nhập lại mật khẩu mới" />
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                                Hoàn thành
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>
         </div >

@@ -342,7 +342,7 @@ const Profile = () => {
                                                     </Row>
                                                     <Divider style={{ padding: 0, margin: 0 }} ></Divider>
                                                 </Col>
-                                                <Button type="primary" style={{ marginTop: 15 }} onClick={() => setVisibleModal(true)}>Cập nhật Profile</Button>
+                                                <Button type="primary" style={{ marginTop: 15 }} onClick={() => setVisibleModal(true)}>Cập nhật</Button>
                                                 {/* <Button type="primary" style={{ marginTop: 15, marginLeft: 5 }} onClick={() => showModal(true)}>Cập nhật thông tin gia đình</Button> */}
 
                                             </Row>

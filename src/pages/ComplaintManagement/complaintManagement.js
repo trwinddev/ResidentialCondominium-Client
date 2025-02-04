@@ -599,7 +599,7 @@ const ComplaintManagement = () => {
                             </div>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer>
+                    {/* <Footer style={{ textAlign: 'center' }}>Copyright© 2024 Created by TrWind</Footer> */}
                 </Layout>
                 <BackTop style={{ textAlign: 'right' }} />
             </Spin>
