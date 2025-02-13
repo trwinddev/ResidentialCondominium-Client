@@ -3,14 +3,47 @@ import "./login.css";
 import userApi from "../../apis/userApi";
 import { useHistory, Link } from "react-router-dom";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Form, Input, Button, Checkbox, Divider, Alert, Row, notification } from 'antd';
+import { Form, Input, Button, Checkbox, Divider, Alert, Row, notification, Modal } from 'antd';
 import backgroundLogin from "../../assets/image/background-client.gif";
 
 const Login = () => {
 
   const [isLogin, setLogin] = useState(true);
+  const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
+  const [forgotPasswordForm] = Form.useForm(); // Add this line
 
   let history = useHistory();
+
+  const showForgotPasswordModal = () => {
+    setForgotPasswordModalVisible(true);
+  };
+
+  const handleForgotPasswordCancel = () => {
+    setForgotPasswordModalVisible(false);
+  };
+
+  const handleForgotPasswordSubmit = async () => {
+    const values = await forgotPasswordForm.validateFields();
+    console.log(values.email);
+
+    try {
+      const data = {
+        "email": values.email
+      }
+      await userApi.forgotPassword(data);
+      notification.success({
+        message: 'Thông báo',
+        description: 'Đã gửi đường dẫn đổi mật khẩu qua email.',
+      });
+      setForgotPasswordModalVisible(false);
+    } catch (error) {
+      notification.error({
+        message: 'Lỗi',
+        description: 'Đã có lỗi xảy ra khi gửi đường dẫn đổi mật khẩu.',
+      });
+      console.error('Forgot password error:', error);
+    }
+  };
 
   const onFinish = values => {
     userApi.login(values.email, values.password)
@@ -138,6 +171,9 @@ const Login = () => {
                           Đăng Nhập
                         </Button>
                       </Form.Item>
+                      <Form.Item style={{ textAlign: 'center' }}>
+                        <a onClick={showForgotPasswordModal}>Quên mật khẩu?</a>
+                      </Form.Item>
                       <Form.Item >
                       <Link className='link-register' to="/register">Đăng ký tài khoản</Link>
                       </Form.Item>
@@ -146,6 +182,41 @@ const Login = () => {
                   </div>
                 </div>
               </div>
+              <Modal
+                title="Quên mật khẩu"
+                visible={forgotPasswordModalVisible}
+                onCancel={handleForgotPasswordCancel}
+                footer={[
+                  <Button key="back" onClick={handleForgotPasswordCancel}>
+                    Hủy
+                  </Button>,
+                  <Button key="submit" type="primary" onClick={handleForgotPasswordSubmit}>
+                    Gửi đường dẫn đổi mật khẩu
+                  </Button>,
+                ]}
+              >
+                <Form
+                  name="forgot_password"
+                  onFinish={handleForgotPasswordSubmit}
+                  form={forgotPasswordForm}
+                >
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      {
+                        type: 'email',
+                        message: 'Email không hợp lệ',
+                      },
+                      {
+                        required: true,
+                        message: 'Vui lòng nhập email',
+                      },
+                    ]}
+                  >
+                    <Input prefix={<UserOutlined />} placeholder="Email" />
+                  </Form.Item>
+                </Form>
+              </Modal>
           </div>
       </div>
   );
