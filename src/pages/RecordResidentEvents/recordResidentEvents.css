@@ -13,7 +13,7 @@
     margin: 18px 20px 24px 5px;
     border: 0 none;
     overflow: hidden;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
 }
 
 #my__event_container__list {
@@ -81,4 +81,8 @@
 .ant-pagination-prev .ant-pagination-item-link,
 .ant-pagination-next .ant-pagination-item-link {
     border-radius: 10px;
+}
+
+.custom-title {
+    color: #3498DB !important;
 }

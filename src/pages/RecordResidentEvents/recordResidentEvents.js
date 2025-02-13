@@ -43,16 +43,16 @@ const RecordResidentEvents = () => {
     const [passwordForm] = Form.useForm();
 
     const columns = [
-        {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
+        // {
+        //     title: 'ID',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        // },
         {
             title: 'Tên',
             dataIndex: 'title',
             key: 'title',
-            render: (text, record) => <a>{text}</a>,
+            render: (text, record) => <span className='custom-title'>{text}</span>,
         },
         {
             title: 'Mô tả',
@@ -63,7 +63,8 @@ const RecordResidentEvents = () => {
             title: 'Ngày diễn ra',
             dataIndex: 'date',
             key: 'date',
-            render: (text) => moment(text).format('DD-MM-YYYY'),
+            width: '15%',
+            render: (text) => moment(text).format('DD-MM-YYYY HH:mm:ss'),
         },
     ];
 
@@ -197,7 +198,7 @@ const RecordResidentEvents = () => {
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                             <Breadcrumb.Item>Sự kiện cư dân</Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ marginTop: 20 }}>

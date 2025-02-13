@@ -229,6 +229,7 @@ const Home = () => {
                             onMouseEnter={() => handleDropdown(true)}
                             onMouseLeave={() => handleDropdown(false)}
                         >
+                            <div>{userData?.username}</div>
                             <img
                                 src={userData?.image}
                                 alt="Ảnh đại diện"

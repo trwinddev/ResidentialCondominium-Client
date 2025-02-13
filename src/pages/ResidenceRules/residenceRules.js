@@ -45,15 +45,17 @@ const ResidenceRules = () => {
     const [passwordForm] = Form.useForm();
 
     const columns = [
-        {
-            title: 'ID',
-            key: 'index',
-            render: (text, record, index) => index + 1,
-        },
+        // {
+        //     title: 'ID',
+        //     key: 'index',
+        //     render: (text, record, index) => index + 1,
+        // },
         {
             title: 'Tên',
             dataIndex: 'title',
             key: 'title',
+            width: '40%',
+            render: (text, record) => <span className='custom-title'>{text}</span>,
         },
         {
             title: 'Nội dung',
@@ -190,7 +192,7 @@ const ResidenceRules = () => {
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                             <Breadcrumb.Item>Nội quy tòa nhà</Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ marginTop: 20 }}>

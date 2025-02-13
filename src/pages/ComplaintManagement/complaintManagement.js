@@ -28,6 +28,7 @@ import {
     Layout,
     Menu,
     Rate,
+    Tag
 } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -289,21 +290,21 @@ const ComplaintManagement = () => {
     };
 
     const columns = [
-        {
-            title: 'ID',
-            key: 'index',
-            render: (text, record, index) => index + 1,
-        },
+        // {
+        //     title: 'ID',
+        //     key: 'index',
+        //     render: (text, record, index) => index + 1,
+        // },
         {
             title: 'Chủ hộ khiếu nại',
             dataIndex: 'user_name',
             key: 'user_name',
         },
-        {
-            title: 'Email',
-            dataIndex: 'user_email',
-            key: 'user_email',
-        },
+        // {
+        //     title: 'Email',
+        //     dataIndex: 'user_email',
+        //     key: 'user_email',
+        // },
         {
             title: 'Chủ đề',
             dataIndex: 'subject',
@@ -315,20 +316,35 @@ const ComplaintManagement = () => {
             key: 'description',
         },
         {
+            title: 'Đảm nhiệm bởi',
+            dataIndex: 'assigned_to_name',
+            key: 'assigned_to_name',
+            render: (assigned_to_name) => assigned_to_name || '-'
+        },
+        {
             title: 'Trạng thái',
             dataIndex: 'status',
             key: 'status',
+            render: (status) => {
+                let color = '';
+                switch(status) {
+                    case 'Đã xong':
+                        color = 'green';
+                        break;
+                    case 'Đang xử lý':
+                        color = 'orange';
+                        break;
+                    default:
+                        color = 'default';
+                }
+                return <Tag color={color}>{status}</Tag>;
+            },
         },
         // {
         //     title: 'Đánh giá',
         //     dataIndex: 'progress',
         //     key: 'progress',
         // },
-        {
-            title: 'Đảm nhiệm bởi',
-            dataIndex: 'assigned_to_name',
-            key: 'assigned_to_name',
-        },
         // {
         //     title: 'Hành động',
         //     key: 'action',
@@ -549,7 +565,7 @@ const ComplaintManagement = () => {
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                             <Breadcrumb.Item>Khiếu nại</Breadcrumb.Item>
                         </Breadcrumb>
                         <div id="my__event_container__list">

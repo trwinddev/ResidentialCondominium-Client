@@ -75,7 +75,7 @@
 .project {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
     margin-left: auto;
     right: 20px;
     position: absolute;

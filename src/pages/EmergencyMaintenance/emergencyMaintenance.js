@@ -26,7 +26,8 @@ import {
     Select,
     DatePicker,
     Layout,
-    Menu
+    Menu,
+    Tag
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import emergencyMaintenanceApi from "../../apis/emergencyMaintenanceApi";
@@ -221,11 +222,11 @@ const EmergencyMaintenance = () => {
 
 
     const columns = [
-        {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
+        // {
+        //     title: 'ID',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        // },
         {
             title: 'Thiết bị',
             dataIndex: 'asset_name',
@@ -248,25 +249,40 @@ const EmergencyMaintenance = () => {
             render: (text) => moment(text).format('DD-MM-YYYY'),
         },
         {
-            title: 'Trạng thái',
-            dataIndex: 'status',
-            key: 'status',
+            title: 'Người giải quyết',
+            dataIndex: 'resolved_by_name',
+            key: 'resolved_by_name',
+            render: (resolved_by_name) => resolved_by_name || '-'
         },
         {
             title: 'Ngày giải quyết',
             dataIndex: 'resolved_at',
             key: 'resolved_at',
-            render: (text) => moment(text).format('DD-MM-YYYY'),
+            render: (text) => (text ? moment(text).format('DD-MM-YYYY') : '-'),
         },
+        // {
+        //     title: 'Mô tả giải quyết',
+        //     dataIndex: 'resolved_description',
+        //     key: 'resolved_description',
+        // },
         {
-            title: 'Mô tả giải quyết',
-            dataIndex: 'resolved_description',
-            key: 'resolved_description',
-        },
-        {
-            title: 'Người giải quyết',
-            dataIndex: 'resolved_by_name',
-            key: 'resolved_by_name',
+            title: 'Trạng thái',
+            dataIndex: 'status',
+            key: 'status',
+            render: (status) => {
+                let color = '';
+                switch(status) {
+                    case 'Đã xong':
+                        color = 'green';
+                        break;
+                    case 'Đang xử lý':
+                        color = 'orange';
+                        break;
+                    default:
+                        color = 'default';
+                }
+                return <Tag color={color}>{status}</Tag>;
+            },
         },
         // {
         //     title: 'Hành động',
@@ -466,7 +482,7 @@ const EmergencyMaintenance = () => {
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                             <Breadcrumb.Item>Vấn đề khẩn cấp</Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ marginTop: 20 }}>
